@@ -11,16 +11,16 @@ export class AppComponent {
   selectedClass: string = '--Выберите класс авто--';
   selectedModel: string = '--Выберите модель авто--';
   models: Array<any> = [];
-  rentCostForDay: Record<string, number> = {
-    shortRent: 0,
-    averageRent: 0,
-    longRent: 0,
-  };
   selectedStartDate: string = '';
   selectedFinishDate: string = '';
   daysInterval: number = 0;
   priceForDay: number = 0;
   finalPrice: number = 0;
+  rentCostForDay: Record<string, number> = {
+    shortRent: 0,
+    averageRent: 0,
+    longRent: 0,
+  };
 
   cars: Array<any> = [
     {
