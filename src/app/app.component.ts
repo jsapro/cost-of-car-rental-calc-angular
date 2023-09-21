@@ -105,17 +105,29 @@ export class AppComponent {
   }
 
   findRentPrice() {
-    console.log(this.dateIntervalError);
     const date1 = new Date(this.selectedStartDate);
     const date2 = new Date(this.selectedFinishDate);
 
-    const interval = date2.getTime() - date1.getTime();
+    let interval;
+
+    if (isNaN(date1.getTime()) || isNaN(date2.getTime())) {
+      interval = 0;
+    } else {
+      interval = date2.getTime() - date1.getTime();
+    }
+
     const daysInterval = Math.floor(interval / (1000 * 3600 * 24));
-    this.daysInterval = daysInterval;
+    if (isNaN(daysInterval) || daysInterval < 0) {
+      this.daysInterval = 0;
+    } else {
+      this.daysInterval = daysInterval;
+    }
     if (daysInterval < 0) {
       this.dateIntervalError = 'Начальная дата должна быть раньше чем конечная';
       return;
     } else {
+      this.dateIntervalError = '';
+
       if (daysInterval === 0) {
         this.dateIntervalError =
           'Аренда рассчитывается от 1 суток. Выберите подходящие даты';
