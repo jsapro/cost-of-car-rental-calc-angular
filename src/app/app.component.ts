@@ -3,13 +3,24 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'cost-of-car-rental-calc-angular';
 
   selectedClass: string = '--Выберите класс авто--';
+  selectedModel: string = '--Выберите модель авто--';
   models: Array<any> = [];
+  rentCostForDay: Record<string, number> = {
+    shortRent: 0,
+    averageRent: 0,
+    longRent: 0,
+  };
+  selectedStartDate: string = '';
+  selectedFinishDate: string = '';
+  daysInterval: number = 0;
+  price: number = 0;
+  finalPrice: number = 0;
 
   cars: Array<any> = [
     {
@@ -70,6 +81,52 @@ export class AppComponent {
   changeClass(car: any) {
     this.models = this.cars.find(
       (_car: any) => _car.name == car.target.value
-      ).models;
+    ).models;
+  }
+
+  changeModel(model: any) {
+    this.rentCostForDay = this.cars
+      .find((_model: any) => _model.name == this.selectedClass)
+      .models.find((mdl: any) => mdl.name == model.target.value).rentCostForDay;
+    console.log(this.rentCostForDay);
+    this.findRentPrice();
+    this.calculatePrice();
+  }
+
+  findRentPrice() {
+    const date1 = new Date(this.selectedStartDate);
+    const date2 = new Date(this.selectedFinishDate);
+
+    const interval = date2.getTime() - date1.getTime();
+    const daysInterval = Math.floor(interval / (1000 * 3600 * 24));
+    this.daysInterval = daysInterval;
+    console.log(daysInterval);
+    if (daysInterval < 0) {
+      return;
+    } else {
+      if (daysInterval === 0) {
+        console.log(1, this.price);
+        return;
+      }
+      if (daysInterval === 1) {
+        this.price = this.rentCostForDay['shortRent'];
+        console.log(2, this.price);
+        return;
+      }
+      if (daysInterval <= 5) {
+        this.price = this.rentCostForDay['averageRent'];
+        console.log(3, this.price);
+        return;
+      }
+      if (daysInterval >= 6) {
+        this.price = this.rentCostForDay['longRent'];
+        console.log(4, this.price);
+        return;
+      }
+    }
+  }
+
+  calculatePrice() {
+    this.finalPrice = this.price * this.daysInterval;
   }
 }
