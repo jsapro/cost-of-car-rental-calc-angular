@@ -19,7 +19,7 @@ export class AppComponent {
   selectedStartDate: string = '';
   selectedFinishDate: string = '';
   daysInterval: number = 0;
-  price: number = 0;
+  priceForDay: number = 0;
   finalPrice: number = 0;
 
   cars: Array<any> = [
@@ -88,9 +88,19 @@ export class AppComponent {
     this.rentCostForDay = this.cars
       .find((_model: any) => _model.name == this.selectedClass)
       .models.find((mdl: any) => mdl.name == model.target.value).rentCostForDay;
-    console.log(this.rentCostForDay);
     this.findRentPrice();
     this.calculatePrice();
+  }
+
+  selectStartDate(e: any) {
+    this.selectedStartDate = e.target.value;
+    this.findRentPrice();
+    this.calculatePrice()
+  }
+  selectFinishDate(e: any) {
+    this.selectedFinishDate = e.target.value;
+    this.findRentPrice();
+    this.calculatePrice()
   }
 
   findRentPrice() {
@@ -100,33 +110,28 @@ export class AppComponent {
     const interval = date2.getTime() - date1.getTime();
     const daysInterval = Math.floor(interval / (1000 * 3600 * 24));
     this.daysInterval = daysInterval;
-    console.log(daysInterval);
     if (daysInterval < 0) {
       return;
     } else {
       if (daysInterval === 0) {
-        console.log(1, this.price);
         return;
       }
       if (daysInterval === 1) {
-        this.price = this.rentCostForDay['shortRent'];
-        console.log(2, this.price);
+        this.priceForDay = this.rentCostForDay['shortRent'];
         return;
       }
       if (daysInterval <= 5) {
-        this.price = this.rentCostForDay['averageRent'];
-        console.log(3, this.price);
+        this.priceForDay = this.rentCostForDay['averageRent'];
         return;
       }
       if (daysInterval >= 6) {
-        this.price = this.rentCostForDay['longRent'];
-        console.log(4, this.price);
+        this.priceForDay = this.rentCostForDay['longRent'];
         return;
       }
     }
   }
 
   calculatePrice() {
-    this.finalPrice = this.price * this.daysInterval;
+    this.finalPrice = this.priceForDay * this.daysInterval;
   }
 }

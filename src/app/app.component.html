@@ -18,4 +18,17 @@
       </select>
     </div>
 
+    <form>
+      <p class="dropdown-title">Даты аренды</p>
+      <input class="dropdown-menu"  type="date" (change)="selectStartDate($event)" /> -
+      <input class="dropdown-menu"  type="date" (change)="selectFinishDate($event)" />
+    </form>
+
+    <p>
+      {{priceForDay}}
+    </p>
+    <p>
+      {{finalPrice}}
+    </p>
+
 </section>
