@@ -1,4 +1,11 @@
-<section class="container">
-  <h1>Расчет стоимости аренды автомобиля</h1>
-
+<section class="calc">
+  <h1 >Расчет стоимости аренды автомобиля</h1>
+  <div>
+    <label class="class-title">Класс авто</label>
+    <select class="dropdown" placeholder="ClassAuto" [(ngModel)]="selectedClass" (change)="changeClass($event)">
+      <option >--Выберите класс авто--</option>
+      <!-- <option value="" disabled selected>Select a Class</option> -->
+      <option *ngFor="let car of cars">{{ car.name }}</option>
+    </select>
+  </div>
 </section>
