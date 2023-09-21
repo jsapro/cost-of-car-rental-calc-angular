@@ -22,14 +22,9 @@
     <p class="dropdown-title">Даты аренды </p>
     <input class="dropdown-menu" type="date" (change)="selectStartDate($event)" /> -
     <input class="dropdown-menu" type="date" (change)="selectFinishDate($event)" />
+    <p class="date-error">{{dateIntervalError}}</p>
   </form>
-
-  <!-- <p>
-    {{priceForDay}}
-  </p>
-  <p>
-    {{finalPrice}}
-  </p> -->
+  
 
   <p class="result-title">Стоимость аренды будет равна: </p>
   <p class="result-price">{{finalPrice}}</p>

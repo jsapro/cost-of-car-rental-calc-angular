@@ -16,6 +16,7 @@ export class AppComponent {
   daysInterval: number = 0;
   priceForDay: number = 0;
   finalPrice: number = 0;
+  dateIntervalError: string = '';
   rentCostForDay: Record<string, number> = {
     shortRent: 0,
     averageRent: 0,
@@ -95,15 +96,16 @@ export class AppComponent {
   selectStartDate(e: any) {
     this.selectedStartDate = e.target.value;
     this.findRentPrice();
-    this.calculatePrice()
+    this.calculatePrice();
   }
   selectFinishDate(e: any) {
     this.selectedFinishDate = e.target.value;
     this.findRentPrice();
-    this.calculatePrice()
+    this.calculatePrice();
   }
 
   findRentPrice() {
+    console.log(this.dateIntervalError);
     const date1 = new Date(this.selectedStartDate);
     const date2 = new Date(this.selectedFinishDate);
 
@@ -111,9 +113,12 @@ export class AppComponent {
     const daysInterval = Math.floor(interval / (1000 * 3600 * 24));
     this.daysInterval = daysInterval;
     if (daysInterval < 0) {
+      this.dateIntervalError = 'Начальная дата должна быть раньше чем конечная';
       return;
     } else {
       if (daysInterval === 0) {
+        this.dateIntervalError =
+          'Аренда рассчитывается от 1 суток. Выберите подходящие даты';
         return;
       }
       if (daysInterval === 1) {
