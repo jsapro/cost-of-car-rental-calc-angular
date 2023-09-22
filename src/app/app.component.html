@@ -1,7 +1,7 @@
 <section class="calc">
   <h1>Расчет стоимости аренды автомобиля</h1>
 
-  <div class="dropdown-wrapper">
+  <fieldset class="dropdown-wrapper">
     <label for="classAuto" class="dropdown-title">Класс авто</label>
     <select
       id="classAuto"
@@ -13,9 +13,9 @@
       <option>--Выберите класс авто--</option>
       <option *ngFor="let car of cars">{{ car.name }}</option>
     </select>
-  </div>
+  </fieldset>
 
-  <div class="dropdown-wrapper">
+  <fieldset class="dropdown-wrapper">
     <label for="model" class="dropdown-title">Модель авто</label>
     <select
       id="model"
@@ -27,7 +27,7 @@
       <option>--Выберите модель авто--</option>
       <option *ngFor="let model of models">{{ model.name }}</option>
     </select>
-  </div>
+  </fieldset>
 
   <form>
     <p class="dropdown-title">Даты аренды</p>
