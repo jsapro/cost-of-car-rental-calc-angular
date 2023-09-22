@@ -80,9 +80,7 @@ export class AppComponent {
   ];
 
   changeClass(car: any) {
-    this.models = this.cars.find(
-      (_car: any) => _car.name == car.target.value
-    ).models;
+    this.models = this.cars.find((_car: any) => _car.name == car.target.value).models;
   }
 
   changeModel(model: any) {
