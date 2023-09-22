@@ -2,8 +2,9 @@
   <h1>Расчет стоимости аренды автомобиля</h1>
 
   <div class="dropdown-wrapper">
-    <label class="dropdown-title">Класс авто</label>
+    <label for="classAuto" class="dropdown-title">Класс авто</label>
     <select
+      id="classAuto"
       class="dropdown-menu"
       placeholder="ClassAuto"
       [(ngModel)]="selectedClass"
@@ -15,8 +16,9 @@
   </div>
 
   <div class="dropdown-wrapper">
-    <label class="dropdown-title">Модель авто</label>
+    <label for="model" class="dropdown-title">Модель авто</label>
     <select
+      id="model"
       class="dropdown-menu"
       placeholder="Model"
       [(ngModel)]="selectedModel"
