@@ -12,7 +12,7 @@ export class AppComponent {
   cars = cars;
   selectedClass = '--Выберите класс авто--';
   selectedModel = '--Выберите модель авто--';
-  models: Array<any> = [];
+  models: Array<ModelType> = [];
   selectedStartDate = '';
   selectedFinishDate = '';
   daysInterval = 0;
