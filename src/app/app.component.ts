@@ -10,15 +10,15 @@ import { cars, dateIntervalError, zeroDateIntervalMessage } from 'utils/constant
 export class AppComponent {
   title = 'cost-of-car-rental-calc-angular';
   cars = cars;
-  selectedClass: string = '--Выберите класс авто--';
-  selectedModel: string = '--Выберите модель авто--';
+  selectedClass = '--Выберите класс авто--';
+  selectedModel = '--Выберите модель авто--';
   models: Array<any> = [];
-  selectedStartDate: string = '';
-  selectedFinishDate: string = '';
-  daysInterval: number = 0;
-  priceForDay: number = 0;
-  finalPrice: number = 0;
-  dateIntervalError: string = '';
+  selectedStartDate = '';
+  selectedFinishDate = '';
+  daysInterval = 0;
+  priceForDay = 0;
+  finalPrice = 0;
+  dateIntervalError = '';
   rentCostForDay: Record<string, number> = {
     shortRent: 0,
     averageRent: 0,
