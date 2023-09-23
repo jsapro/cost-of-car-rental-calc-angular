@@ -1,9 +1,17 @@
+enum CarName {
+  BMW_X5 = 'BMW X5',
+  Nissan_Quashkai = 'Nissan Quashkai',
+  Ford_Focus = 'Ford Focus',
+  Ford_Transit = 'Ford Transit',
+  MercedesBenz_Sprinter = 'Mercedes-Benz Sprinter'
+}
+
 const cars: Array<any> = [
   {
     name: 'B',
     models: [
       {
-        name: 'BMW X5',
+        name: CarName.BMW_X5,
         rentCostForDay: {
           shortRent: 10000,
           averageRent: 8000,
@@ -12,7 +20,7 @@ const cars: Array<any> = [
       },
 
       {
-        name: 'Nissan Quashkai',
+        name: CarName.Nissan_Quashkai,
         rentCostForDay: {
           shortRent: 9000,
           averageRent: 7000,
@@ -20,7 +28,7 @@ const cars: Array<any> = [
         },
       },
       {
-        name: 'Ford Focus',
+        name: CarName.Ford_Focus,
         rentCostForDay: {
           shortRent: 8000,
           averageRent: 6500,
@@ -34,7 +42,7 @@ const cars: Array<any> = [
     name: 'C',
     models: [
       {
-        name: 'Ford Transit',
+        name: CarName.Ford_Transit,
         rentCostForDay: {
           shortRent: 12000,
           averageRent: 10000,
@@ -43,7 +51,7 @@ const cars: Array<any> = [
       },
 
       {
-        name: 'Mercedes-Benz Sprinter',
+        name: CarName.MercedesBenz_Sprinter,
         rentCostForDay: {
           shortRent: 13000,
           averageRent: 11000,
