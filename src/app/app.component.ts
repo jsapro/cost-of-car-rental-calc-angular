@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import type { CarType, ModelType } from 'utils/types';
 
 @Component({
   selector: 'app-root',
@@ -79,25 +80,33 @@ export class AppComponent {
     },
   ];
 
-  changeClass(car: any) {
-    this.models = this.cars.find((_car: any) => _car.name == car.target.value).models;
+  changeClass(e: Event) {
+    if (this.cars !== undefined && this.cars !== null && this.cars.length >0) {
+      const target = e.target as HTMLSelectElement;
+        this.models = this.cars.find((_car) => _car.name == target.value).models;
+    }
   }
 
-  changeModel(model: any) {
-    this.rentCostForDay = this.cars
-      .find((_model: any) => _model.name == this.selectedClass)
-      .models.find((mdl: any) => mdl.name == model.target.value).rentCostForDay;
+  changeModel(e: Event) {
+    if (this.cars !== undefined && this.cars !== null && this.cars.length > 0) {
+      const target = e.target as HTMLSelectElement;
+      this.rentCostForDay = this.cars
+        .find((_model: any) => _model.name == this.selectedClass)
+        .models.find((mdl: any) => mdl.name == target.value).rentCostForDay;
+      this.findRentPrice();
+      this.calculatePrice();
+    }
+  }
+
+  selectStartDate(e: Event) {
+    const target = e.target as HTMLSelectElement;
+    this.selectedStartDate = target.value;
     this.findRentPrice();
     this.calculatePrice();
   }
-
-  selectStartDate(e: any) {
-    this.selectedStartDate = e.target.value;
-    this.findRentPrice();
-    this.calculatePrice();
-  }
-  selectFinishDate(e: any) {
-    this.selectedFinishDate = e.target.value;
+  selectFinishDate(e: Event) {
+    const target = e.target as HTMLSelectElement;
+    this.selectedFinishDate = target.value;
     this.findRentPrice();
     this.calculatePrice();
   }
