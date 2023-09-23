@@ -1,4 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: aquamarine;
+  --secondary-color: rgb(73, 124, 117);
+  --accent-color: rgb(8, 219, 149);
+  --message-color: rgb(238, 146, 8);
+  --contrast-color: rgb(30, 34, 68);
+  --helper-color: rgb(255, 255, 255);
+}
+
 body {
-  background-color: rgb(73, 124, 117);
+  background-color: var(--secondary-color);
 }
