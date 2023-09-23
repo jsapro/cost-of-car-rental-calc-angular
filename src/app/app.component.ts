@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import type { CarType, ModelType } from 'utils/types';
+import { cars, dateIntervalError, zeroDateIntervalMessage } from 'utils/constants';
 
 @Component({
   selector: 'app-root',
@@ -7,99 +9,49 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'cost-of-car-rental-calc-angular';
-
-  selectedClass: string = '--Выберите класс авто--';
-  selectedModel: string = '--Выберите модель авто--';
-  models: Array<any> = [];
-  selectedStartDate: string = '';
-  selectedFinishDate: string = '';
-  daysInterval: number = 0;
-  priceForDay: number = 0;
-  finalPrice: number = 0;
-  dateIntervalError: string = '';
+  cars = cars;
+  selectedClass = '--Выберите класс авто--';
+  selectedModel = '--Выберите модель авто--';
+  models: Array<ModelType> = [];
+  selectedStartDate = '';
+  selectedFinishDate = '';
+  daysInterval = 0;
+  priceForDay = 0;
+  finalPrice = 0;
+  dateIntervalError = '';
   rentCostForDay: Record<string, number> = {
     shortRent: 0,
     averageRent: 0,
     longRent: 0,
   };
 
-  cars: Array<any> = [
-    {
-      name: 'B',
-      models: [
-        {
-          name: 'BMW X5',
-          rentCostForDay: {
-            shortRent: 10000,
-            averageRent: 8000,
-            longRent: 5000,
-          },
-        },
-
-        {
-          name: 'Nissan Quashkai',
-          rentCostForDay: {
-            shortRent: 9000,
-            averageRent: 7000,
-            longRent: 4500,
-          },
-        },
-        {
-          name: 'Ford Focus',
-          rentCostForDay: {
-            shortRent: 8000,
-            averageRent: 6500,
-            longRent: 4000,
-          },
-        },
-      ],
-    },
-
-    {
-      name: 'C',
-      models: [
-        {
-          name: 'Ford Transit',
-          rentCostForDay: {
-            shortRent: 12000,
-            averageRent: 10000,
-            longRent: 8000,
-          },
-        },
-
-        {
-          name: 'Mercedes-Benz Sprinter',
-          rentCostForDay: {
-            shortRent: 13000,
-            averageRent: 11000,
-            longRent: 9000,
-          },
-        },
-      ],
-    },
-  ];
-
-  changeClass(car: any) {
-    this.models = this.cars.find(
-      (_car: any) => _car.name == car.target.value
-    ).models;
+  changeClass(e: Event) {
+    if (this.cars !== undefined && this.cars !== null && this.cars.length > 0) {
+      const target = e.target as HTMLSelectElement;
+      this.models = cars.find((_car) => _car.name == target.value).models;
+    }
   }
 
-  changeModel(model: any) {
-    this.rentCostForDay = this.cars
-      .find((_model: any) => _model.name == this.selectedClass)
-      .models.find((mdl: any) => mdl.name == model.target.value).rentCostForDay;
+  changeModel(e: Event) {
+    if (this.cars !== undefined && this.cars !== null && this.cars.length > 0) {
+      const target = e.target as HTMLSelectElement;
+      this.rentCostForDay = this.cars
+        .find((_model: any) => _model.name == this.selectedClass)
+        .models.find((mdl: any) => mdl.name == target.value).rentCostForDay;
+      this.findRentPrice();
+      this.calculatePrice();
+    }
+  }
+
+  selectStartDate(e: Event) {
+    const target = e.target as HTMLSelectElement;
+    this.selectedStartDate = target.value;
     this.findRentPrice();
     this.calculatePrice();
   }
-
-  selectStartDate(e: any) {
-    this.selectedStartDate = e.target.value;
-    this.findRentPrice();
-    this.calculatePrice();
-  }
-  selectFinishDate(e: any) {
-    this.selectedFinishDate = e.target.value;
+  selectFinishDate(e: Event) {
+    const target = e.target as HTMLSelectElement;
+    this.selectedFinishDate = target.value;
     this.findRentPrice();
     this.calculatePrice();
   }
@@ -123,14 +75,13 @@ export class AppComponent {
       this.daysInterval = daysInterval;
     }
     if (daysInterval < 0) {
-      this.dateIntervalError = 'Начальная дата должна быть раньше чем конечная';
+      this.dateIntervalError = dateIntervalError;
       return;
     } else {
       this.dateIntervalError = '';
 
       if (daysInterval === 0) {
-        this.dateIntervalError =
-          'Аренда рассчитывается от 1 суток. Выберите подходящие даты';
+        this.dateIntervalError = zeroDateIntervalMessage;
         return;
       }
       if (daysInterval === 1) {

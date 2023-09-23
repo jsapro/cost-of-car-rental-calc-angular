@@ -1,34 +1,41 @@
 <section class="calc">
-
   <h1>Расчет стоимости аренды автомобиля</h1>
 
-  <div class="dropdown-wrapper">
-    <label class="dropdown-title">Класс авто</label>
-    <select class="dropdown-menu" placeholder="ClassAuto" [(ngModel)]="selectedClass" (change)="changeClass($event)">
+  <fieldset class="dropdown-wrapper">
+    <label for="classAuto" class="dropdown-title">Класс авто</label>
+    <select
+      id="classAuto"
+      class="dropdown-menu"
+      placeholder="ClassAuto"
+      [(ngModel)]="selectedClass"
+      (change)="changeClass($event)"
+    >
       <option>--Выберите класс авто--</option>
       <option *ngFor="let car of cars">{{ car.name }}</option>
     </select>
-  </div>
+  </fieldset>
 
-  <div class="dropdown-wrapper">
-    <label class="dropdown-title">Модель авто</label>
-    <select class="dropdown-menu" placeholder="Model" [(ngModel)]="selectedModel" (change)="changeModel($event)">
+  <fieldset class="dropdown-wrapper">
+    <label for="model" class="dropdown-title">Модель авто</label>
+    <select
+      id="model"
+      class="dropdown-menu"
+      placeholder="Model"
+      [(ngModel)]="selectedModel"
+      (change)="changeModel($event)"
+    >
       <option>--Выберите модель авто--</option>
       <option *ngFor="let model of models">{{ model.name }}</option>
     </select>
-  </div>
+  </fieldset>
 
   <form>
-    <p class="dropdown-title">Даты аренды </p>
+    <p class="dropdown-title">Даты аренды</p>
     <input class="dropdown-menu" type="date" (change)="selectStartDate($event)" /> -
     <input class="dropdown-menu" type="date" (change)="selectFinishDate($event)" />
-    <p class="date-error">{{dateIntervalError}}</p>
+    <p class="date-error">{{ dateIntervalError }}</p>
   </form>
-  
 
-  <p class="result-title">Стоимость аренды будет равна: </p>
-  <p class="result-price">{{finalPrice}}</p>
-
-
-
+  <p class="result-title">Стоимость аренды будет равна:</p>
+  <p class="result-price">{{ finalPrice }}</p>
 </section>
