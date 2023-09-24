@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import type { CarType, ModelType } from 'utils/types';
-import { cars, dateIntervalError, zeroDateIntervalMessage } from 'utils/constants';
+import {
+  cars,
+  dateIntervalError,
+  zeroDateIntervalMessage,
+  dropdownClassTitle,
+  dropdownModelTitle,
+} from 'utils/constants';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +14,9 @@ import { cars, dateIntervalError, zeroDateIntervalMessage } from 'utils/constant
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'cost-of-car-rental-calc-angular';
   cars = cars;
-  selectedClass = '--Выберите класс авто--';
-  selectedModel = '--Выберите модель авто--';
+  selectedClass = dropdownClassTitle;
+  selectedModel = dropdownModelTitle;
   models: Array<ModelType> = [];
   selectedStartDate = '';
   selectedFinishDate = '';
@@ -28,7 +33,7 @@ export class AppComponent {
   changeClass(e: Event) {
     if (this.cars !== undefined && this.cars !== null && this.cars.length > 0) {
       const target = e.target as HTMLSelectElement;
-      this.models = cars.find((_car) => _car.name == target.value).models;
+      this.models = cars.find(({ name }: CarType) => name == target.value).models;
     }
   }
 
@@ -36,8 +41,8 @@ export class AppComponent {
     if (this.cars !== undefined && this.cars !== null && this.cars.length > 0) {
       const target = e.target as HTMLSelectElement;
       this.rentCostForDay = this.cars
-        .find((_model: any) => _model.name == this.selectedClass)
-        .models.find((mdl: any) => mdl.name == target.value).rentCostForDay;
+        .find(({ name }: CarType) => name == this.selectedClass)
+        .models.find(({ name }: ModelType) => name == target.value).rentCostForDay;
       this.findRentPrice();
       this.calculatePrice();
     }
@@ -56,7 +61,7 @@ export class AppComponent {
     this.calculatePrice();
   }
 
-  findRentPrice() {
+  findDaysInterval() {
     const date1 = new Date(this.selectedStartDate);
     const date2 = new Date(this.selectedFinishDate);
 
@@ -69,6 +74,12 @@ export class AppComponent {
     }
 
     const daysInterval = Math.floor(interval / (1000 * 3600 * 24));
+    return daysInterval;
+  }
+
+  findRentPrice() {
+    const daysInterval = this.findDaysInterval();
+
     if (isNaN(daysInterval) || daysInterval < 0) {
       this.daysInterval = 0;
     } else {
@@ -77,25 +88,22 @@ export class AppComponent {
     if (daysInterval < 0) {
       this.dateIntervalError = dateIntervalError;
       return;
-    } else {
-      this.dateIntervalError = '';
+    }
 
-      if (daysInterval === 0) {
+    this.dateIntervalError = '';
+    switch (true) {
+      case daysInterval === 0:
         this.dateIntervalError = zeroDateIntervalMessage;
-        return;
-      }
-      if (daysInterval === 1) {
+        break;
+      case daysInterval === 1:
         this.priceForDay = this.rentCostForDay['shortRent'];
-        return;
-      }
-      if (daysInterval <= 5) {
+        break;
+      case daysInterval <= 5:
         this.priceForDay = this.rentCostForDay['averageRent'];
-        return;
-      }
-      if (daysInterval >= 6) {
+        break;
+      case daysInterval >= 6:
         this.priceForDay = this.rentCostForDay['longRent'];
-        return;
-      }
+        break;
     }
   }
 
