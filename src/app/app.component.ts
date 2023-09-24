@@ -36,8 +36,8 @@ export class AppComponent {
     if (this.cars !== undefined && this.cars !== null && this.cars.length > 0) {
       const target = e.target as HTMLSelectElement;
       this.rentCostForDay = this.cars
-        .find(({name}: CarType) => name == this.selectedClass)
-        .models.find(({name}: ModelType) => name == target.value).rentCostForDay;
+        .find(({ name }: CarType) => name == this.selectedClass)
+        .models.find(({ name }: ModelType) => name == target.value).rentCostForDay;
       this.findRentPrice();
       this.calculatePrice();
     }
@@ -77,25 +77,22 @@ export class AppComponent {
     if (daysInterval < 0) {
       this.dateIntervalError = dateIntervalError;
       return;
-    } else {
-      this.dateIntervalError = '';
+    }
 
-      if (daysInterval === 0) {
+    this.dateIntervalError = '';
+    switch (true) {
+      case daysInterval === 0:
         this.dateIntervalError = zeroDateIntervalMessage;
-        return;
-      }
-      if (daysInterval === 1) {
+        break;
+      case daysInterval === 1:
         this.priceForDay = this.rentCostForDay['shortRent'];
-        return;
-      }
-      if (daysInterval <= 5) {
+        break;
+      case daysInterval <= 5:
         this.priceForDay = this.rentCostForDay['averageRent'];
-        return;
-      }
-      if (daysInterval >= 6) {
+        break;
+      case daysInterval >= 6:
         this.priceForDay = this.rentCostForDay['longRent'];
-        return;
-      }
+        break;
     }
   }
 
