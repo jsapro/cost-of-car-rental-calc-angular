@@ -14,7 +14,6 @@ import {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'cost-of-car-rental-calc-angular';
   cars = cars;
   selectedClass = dropdownClassTitle;
   selectedModel = dropdownModelTitle;
