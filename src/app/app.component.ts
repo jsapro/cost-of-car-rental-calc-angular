@@ -17,14 +17,14 @@ export class AppComponent {
   cars = cars;
   selectedClass = dropdownClassTitle;
   selectedModel = dropdownModelTitle;
-  models: Array<ModelType> = [];
+  models?: Array<ModelType> = [];
   selectedStartDate = '';
   selectedFinishDate = '';
   daysInterval = 0;
   priceForDay = 0;
   finalPrice = 0;
   dateIntervalError = '';
-  rentCostForDay: Record<string, number> = {
+  rentCostForDay?: Record<string, number> = {
     shortRent: 0,
     averageRent: 0,
     longRent: 0,
@@ -33,7 +33,7 @@ export class AppComponent {
   changeClass(e: Event) {
     if (this.cars !== undefined && this.cars !== null && this.cars.length > 0) {
       const target = e.target as HTMLSelectElement;
-      this.models = cars.find(({ name }: CarType) => name == target.value).models;
+      this.models = cars.find(({ name }: CarType) => name == target.value)?.models;
     }
   }
 
@@ -42,7 +42,7 @@ export class AppComponent {
       const target = e.target as HTMLSelectElement;
       this.rentCostForDay = this.cars
         .find(({ name }: CarType) => name == this.selectedClass)
-        .models.find(({ name }: ModelType) => name == target.value).rentCostForDay;
+        ?.models.find(({ name }: ModelType) => name == target.value)?.rentCostForDay;
       this.findRentPrice();
       this.calculatePrice();
     }
@@ -89,8 +89,9 @@ export class AppComponent {
       this.dateIntervalError = dateIntervalError;
       return;
     }
-
-    this.dateIntervalError = '';
+    if (!this.rentCostForDay) {
+      return;
+    }
     switch (true) {
       case daysInterval === 0:
         this.dateIntervalError = zeroDateIntervalMessage;
@@ -105,6 +106,8 @@ export class AppComponent {
         this.priceForDay = this.rentCostForDay['longRent'];
         break;
     }
+
+    this.dateIntervalError = '';
   }
 
   calculatePrice() {

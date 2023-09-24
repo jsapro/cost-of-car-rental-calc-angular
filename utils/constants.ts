@@ -1,3 +1,5 @@
+import { CarType } from './types';
+
 enum CarName {
   BMW_X5 = 'BMW X5',
   Nissan_Quashkai = 'Nissan Quashkai',
@@ -6,7 +8,7 @@ enum CarName {
   MercedesBenz_Sprinter = 'Mercedes-Benz Sprinter',
 }
 
-const cars: Array<any> = [
+const cars: Array<CarType> = [
   {
     name: 'B',
     models: [
