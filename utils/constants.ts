@@ -3,7 +3,7 @@ enum CarName {
   Nissan_Quashkai = 'Nissan Quashkai',
   Ford_Focus = 'Ford Focus',
   Ford_Transit = 'Ford Transit',
-  MercedesBenz_Sprinter = 'Mercedes-Benz Sprinter'
+  MercedesBenz_Sprinter = 'Mercedes-Benz Sprinter',
 }
 
 const cars: Array<any> = [
@@ -65,5 +65,13 @@ const cars: Array<any> = [
 const dateIntervalError = 'Начальная дата должна быть раньше чем конечная';
 const zeroDateIntervalMessage =
   'Аренда рассчитывается от 1 суток. Выберите подходящие даты';
+const dropdownClassTitle = '--Выберите класс авто--';
+const dropdownModelTitle = '--Выберите модель авто--';
 
-export { cars, dateIntervalError, zeroDateIntervalMessage };
+export {
+  cars,
+  dateIntervalError,
+  zeroDateIntervalMessage,
+  dropdownClassTitle,
+  dropdownModelTitle,
+};

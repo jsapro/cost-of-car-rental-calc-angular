@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import type { CarType, ModelType } from 'utils/types';
-import { cars, dateIntervalError, zeroDateIntervalMessage } from 'utils/constants';
+import {
+  cars,
+  dateIntervalError,
+  zeroDateIntervalMessage,
+  dropdownClassTitle,
+  dropdownModelTitle,
+} from 'utils/constants';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +16,8 @@ import { cars, dateIntervalError, zeroDateIntervalMessage } from 'utils/constant
 export class AppComponent {
   title = 'cost-of-car-rental-calc-angular';
   cars = cars;
-  selectedClass = '--Выберите класс авто--';
-  selectedModel = '--Выберите модель авто--';
+  selectedClass = dropdownClassTitle;
+  selectedModel = dropdownModelTitle;
   models: Array<ModelType> = [];
   selectedStartDate = '';
   selectedFinishDate = '';
