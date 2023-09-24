@@ -61,7 +61,7 @@ export class AppComponent {
     this.calculatePrice();
   }
 
-  findRentPrice() {
+  findDaysInterval() {
     const date1 = new Date(this.selectedStartDate);
     const date2 = new Date(this.selectedFinishDate);
 
@@ -74,6 +74,12 @@ export class AppComponent {
     }
 
     const daysInterval = Math.floor(interval / (1000 * 3600 * 24));
+    return daysInterval;
+  }
+
+  findRentPrice() {
+    const daysInterval = this.findDaysInterval();
+
     if (isNaN(daysInterval) || daysInterval < 0) {
       this.daysInterval = 0;
     } else {
