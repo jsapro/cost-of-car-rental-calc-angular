@@ -33,7 +33,7 @@ export class AppComponent {
   changeClass(e: Event) {
     if (this.cars !== undefined && this.cars !== null && this.cars.length > 0) {
       const target = e.target as HTMLSelectElement;
-      this.models = cars.find((_car) => _car.name == target.value).models;
+      this.models = cars.find(({ name }: CarType) => name == target.value).models;
     }
   }
 
