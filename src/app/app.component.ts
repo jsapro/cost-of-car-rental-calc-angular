@@ -85,17 +85,29 @@ export class AppComponent {
     } else {
       this.daysInterval = daysInterval;
     }
+
     if (daysInterval < 0) {
       this.dateIntervalError = dateIntervalError;
       return;
     }
+
+    if (daysInterval === 0) {
+      this.dateIntervalError = zeroDateIntervalMessage;
+      return;
+    }
+
+    if (daysInterval === 0) {
+      this.dateIntervalError = zeroDateIntervalMessage;
+      return;
+    }
+
     if (!this.rentCostForDay) {
       return;
     }
+
+    this.dateIntervalError = '';
+
     switch (true) {
-      case daysInterval === 0:
-        this.dateIntervalError = zeroDateIntervalMessage;
-        break;
       case daysInterval === 1:
         this.priceForDay = this.rentCostForDay['shortRent'];
         break;
@@ -106,8 +118,6 @@ export class AppComponent {
         this.priceForDay = this.rentCostForDay['longRent'];
         break;
     }
-
-    this.dateIntervalError = '';
   }
 
   calculatePrice() {
