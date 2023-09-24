@@ -36,8 +36,8 @@ export class AppComponent {
     if (this.cars !== undefined && this.cars !== null && this.cars.length > 0) {
       const target = e.target as HTMLSelectElement;
       this.rentCostForDay = this.cars
-        .find((_model: any) => _model.name == this.selectedClass)
-        .models.find((mdl: any) => mdl.name == target.value).rentCostForDay;
+        .find(({name}: CarType) => name == this.selectedClass)
+        .models.find(({name}: ModelType) => name == target.value).rentCostForDay;
       this.findRentPrice();
       this.calculatePrice();
     }
